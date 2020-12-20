@@ -32,21 +32,12 @@ impl Sift for Sieve {
             }
         }
 
-        // let final_primes = candidates
-        //     .iter()
-        //     .enumerate()
-        //     .filter(|(_, is_prime)| is_prime)
-        //     .map(|(prime_idx, _)| candidate_idx + 1);
-
-        let mut final_primes: Vec<usize> = Vec::new();
-        for (candidate_idx, is_prime) in candidates.iter().enumerate() {
-            if *is_prime {
-                let prime = candidate_idx + 1;
-                final_primes.push(prime);
-            }
-        }
-        
-        final_primes
+        candidates
+            .iter()
+            .enumerate()
+            .filter(|(_, &is_prime)| is_prime)
+            .map(|(prime_idx, _)| prime_idx + 1)
+            .collect()
     }
 }
 
@@ -76,5 +67,6 @@ mod tests {
         let sieve = Sieve::new(evaluation_limit);
         let primes = sieve.sift();
         let expected_primes: Vec<usize> = vec![2];
-        assert_eq!(expected_primes, primes);    }
+        assert_eq!(expected_primes, primes);
+    }
 }
